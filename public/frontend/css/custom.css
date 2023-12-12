@@ -1,0 +1,135 @@
+.lable_name{
+    font-size: 16px;
+}
+.image-products{
+    width: auto;
+    height: 250px;
+    overflow: hidden;
+}
+*{
+    font-family: 'Roboto', sans-serif;
+}
+.checkout-form label{
+    font-size: 12px;
+    font-weight: 700;
+}
+.checkout-form input{
+    font-size: 14px;
+    padding: 5px;
+    font-weight: 400;
+}
+.product-sale{
+    color: red;
+    font-size: 18px;
+    font-weight: 700;
+}
+a{
+    text-decoration:none  !important;
+}
+.active{
+    text-decoration: underline 2px cadetblue;
+}
+.diachi{
+    width: 100%;
+}
+.vitri{
+    display: flex;
+    margin-left: 3rem;
+}
+.b{
+    font-weight: bold;
+}
+.change-address{
+    margin-left: 1.5rem;
+    margin-top: -.4rem;
+}
+.my-cart, .my-wishlist{
+    position: relative;
+}
+.wishlist-count, .cart-count{
+    position: absolute;
+    top: -.03rem;
+    right: -.4rem;
+}
+.rating-css{
+    color: #ffe400;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 20px 0;
+}
+.rating-css input{
+    display: none;
+}
+.rating-css input + label{
+    font-size: 60px;
+    text-shadow: 1px 1px 0 #8f8420;
+    cursor: pointer;
+}
+.rating-css input:checked + label ~ label {
+    color: #b4afaf;
+}
+.rating-css label:active{
+    transform: scale(.8);
+    transition: .3s ease;
+}
+.checked{
+    color: #ffe400;
+}
+.review{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.f-input{
+    display: flex;
+}
+.form-review{
+    width: 50%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.checkbox-suggestion{
+    margin: 0 0 1rem 1rem;
+}
+.input-image-review{
+    margin: 0 0 1rem 0;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-button {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .show {
+    display: block;
+  }
