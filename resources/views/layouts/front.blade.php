@@ -15,6 +15,7 @@
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <!-- Scripts -->
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
@@ -23,6 +24,13 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css') }}">
 
+
+    <style>
+        a {
+            text-decoration: none !important;
+            color: black !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,6 +45,34 @@
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <script src="{{ asset('frontend/js/checkout.js') }}"></script>
 
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        var availableTags = [];
+        $.ajax({
+            method: "GET",
+            url: "/product-list",
+            success: function(response) {
+                starAutoComplete(response);
+            }
+        });
+
+        function starAutoComplete(availableTags) {
+            $("#inputFind").autocomplete({
+                source: function(request, response) {
+                    var term = removeDiacritics(request.term.toLowerCase());
+                    var filteredTags = $.grep(availableTags, function(tag) {
+                        return removeDiacritics(tag.toLowerCase()).indexOf(term) === 0;
+                    });
+                    response(filteredTags);
+                }
+            });
+        }
+
+        function removeDiacritics(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+    </script>
+
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -48,6 +84,16 @@
     @if (session('status-order'))
         <script>
             swal("Bạn đã đặt hàng thành công!!", "Đơn hàng của bạn sẽ sớm được giao!", "success");
+        </script>
+    @endif
+    @if (session('status-search-warning'))
+        <script>
+            swal({
+                title: "Cảnh báo!",
+                text: "Không có sản phẩm nào cả",
+                icon: "warning",
+                button: "OK",
+            });
         </script>
     @endif
     @if (session('status-update'))
@@ -77,4 +123,5 @@
     @endif
     @yield('scripts')
 </body>
+
 </html>

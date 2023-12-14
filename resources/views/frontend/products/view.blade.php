@@ -36,7 +36,6 @@
                             <label for="rating4" class="fa fa-star"></label>
                             <input type="radio" value="5" name="product_rating" id="rating5">
                             <label for="rating5" class="fa fa-star"></label>
-                            <input type="hidden" value="5" name="product_rating">
                         @endif
                     </div>
                 </form>

@@ -5,21 +5,32 @@
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="search-bar">
+            <form action="{{ url('search-product') }}" method="POST">
+                @csrf
+                <div class="input-group ">
+                    <input type="search" class="form-control" required placeholder="Mua gì tìm ngayyyy"
+                        id="inputFind" name="product_name" aria-describedby="basic">
+                    <button type="submit" class="input-group-text"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ms-auto ">
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="{{ url('/') }}">Trang Chủ</a>
+                <li>
+                    <a class="nav-link {{ Request::is('category') ? 'active' : '' }}" href="{{ url('category') }}">Danh
+                        Mục</a>
                 </li>
                 <li>
-                    <a class="nav-link {{ Request::is('category') ? 'active' : '' }}" href="{{ url('category') }}">Danh Mục</a>
-                </li>
-                <li>
-                    <a class="nav-link my-cart {{ Request::is('cart') ? 'active' : '' }}" href="{{ url('cart') }}">Giỏ Hàng 
+                    <a class="nav-link my-cart {{ Request::is('cart') ? 'active' : '' }}" href="{{ url('cart') }}">
+                        <i class="fa fa-shopping-cart"></i>
                         <span class="badge badge-pill bg-primary cart-count">0</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link my-wishlist {{ Request::is('wishlist') ? 'active' : '' }}" href="{{ url('wishlist') }}">Yêu Thích
+                    <a
+                        class="nav-link my-wishlist {{ Request::is('wishlist') ? 'active' : '' }}"href="{{ url('wishlist') }}">
+                        <i class="fa fa-regular fa-heart"></i>
                         <span class="badge badge-pill bg-success wishlist-count">0</span>
                     </a>
                 </li>

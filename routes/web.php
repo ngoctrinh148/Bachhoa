@@ -36,6 +36,9 @@ Route::get('category', [FrontendController::class, 'category']);
 Route::get('view-category/{slug}', [FrontendController::class, 'viewcategory']);
 Route::get('category/{cate_slug}/{prod_slug}', [FrontendController::class, 'viewproducts']);
 
+Route::get('product-list', [FrontendController::class,'productslist']);
+Route::post('search-product', [FrontendController::class,'searchproduct']);
+
 
 Route::post('add-to-cart', [CartController::class, 'addToCart']);
 Route::post('deleta-cart-item', [CartController::class, 'deleteproduct']);
