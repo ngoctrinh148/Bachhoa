@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('prod_id');
             $table->string('user_review');
+            $table->string('suggestion')->default(0);
             $table->timestamps();
         });
     }

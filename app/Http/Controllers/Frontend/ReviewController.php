@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,9 +30,17 @@ class ReviewController extends Controller
     {
         $product_id = $request->input('product_id');
         $product = Product::where('id', $product_id)->where('status', '0')->first();
-        $suggestion = $request->input('suggestion') == TRUE ? '1' : '0';
+      
         if ($product) {
             $user_review = $request->input('userreview');
+            $product_rating = $request->input('product_rating');
+            $suggestion = $request->input('suggestion') == TRUE ? '1' : '0';
+
+            $new_ratings = Rating::create([
+                'user_id' => Auth::id(),
+                'prod_id' => $product_id,
+                'stars_rated' => $product_rating,
+            ]);
 
             $new_reviews =  Review::create([
                 'user_id' => Auth::id(),

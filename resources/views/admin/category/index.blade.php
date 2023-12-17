@@ -12,7 +12,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Description</th>
                         <th>Image</th>
                         <th>Action</th>
                     </tr>
@@ -22,7 +21,6 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->description }}</td>
                             <td>
                                 <img src="{{ asset('asset/uploads/category/' . $item->image) }}" class="cate-image"
                                     alt="">

@@ -11,38 +11,35 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Đánh giá {{ $products->name }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="rating-form" action="{{ url('/add-rating') }}" class="rating-css" method="POST">
-                    <div class="star-icon">
-                        @if ($user_rating)
-                            @for ($i = 1; $i <= $user_rating->stars_rated; $i++)
-                                {{-- <i class="fa fa-star checked"></i> --}}
-                                <input type="radio" value="{{ $i }}" name="product_rating" checked
-                                    id="rating{{ $i }}">
-                                <label for="rating{{ $i }}" class="fa fa-star"></label>
-                            @endfor
-                            @for ($j = $user_rating->stars_rated + 1; $j <= 5; $j++)
-                                <input type="radio" value="{{ $i }}" name="product_rating"
-                                    id="rating{{ $i }}">
-                                <label for="rating{{ $i }}" class="fa fa-star"></label>
-                            @endfor
-                        @else
-                            <input type="radio" value="1" name="product_rating" id="rating1">
-                            <label for="rating1" class="fa fa-star"></label>
-                            <input type="radio" value="2" name="product_rating" id="rating2">
-                            <label for="rating2" class="fa fa-star"></label>
-                            <input type="radio" value="3" name="product_rating" id="rating3">
-                            <label for="rating3" class="fa fa-star"></label>
-                            <input type="radio" value="4" name="product_rating" id="rating4">
-                            <label for="rating4" class="fa fa-star"></label>
-                            <input type="radio" value="5" name="product_rating" id="rating5">
-                            <label for="rating5" class="fa fa-star"></label>
-                        @endif
-                    </div>
-                </form>
-
-                <div id="review-form" style="display: none;">
+                <div id="review-form" style="">
                     <form action="{{ url('add-review') }}" method="post" style="width: 40vw">
                         @csrf
+                        <div class="star-icon rating-css">
+                            @if ($user_rating)
+                                @for ($i = 1; $i <= $user_rating->stars_rated; $i++)
+                                    {{-- <i class="fa fa-star checked"></i> --}}
+                                    <input type="radio" value="{{ $i }}" name="product_rating" checked
+                                        id="rating{{ $i }}">
+                                    <label for="rating{{ $i }}" class="fa fa-star"></label>
+                                @endfor
+                                @for ($j = $user_rating->stars_rated + 1; $j <= 5; $j++)
+                                    <input type="radio" value="{{ $i }}" name="product_rating"
+                                        id="rating{{ $i }}">
+                                    <label for="rating{{ $i }}" class="fa fa-star"></label>
+                                @endfor
+                            @else
+                                <input type="radio" value="1" name="product_rating" id="rating1">
+                                <label for="rating1" class="fa fa-star"></label>
+                                <input type="radio" value="2" name="product_rating" id="rating2">
+                                <label for="rating2" class="fa fa-star"></label>
+                                <input type="radio" value="3" name="product_rating" id="rating3">
+                                <label for="rating3" class="fa fa-star"></label>
+                                <input type="radio" value="4" name="product_rating" id="rating4">
+                                <label for="rating4" class="fa fa-star"></label>
+                                <input type="radio" value="5" name="product_rating" id="rating5">
+                                <label for="rating5" class="fa fa-star"></label>
+                            @endif
+                        </div>
                         <div class="f-input row py-3" style="padding: 2rem">
                             <input type="hidden" name="product_id" value="{{ $products->id }}">
 
@@ -63,21 +60,6 @@
                         </div>
                     </form>
                 </div>
-
-                <script>
-                    const ratingForm = document.getElementById('rating-form');
-                    const reviewForm = document.getElementById('review-form');
-                    const ratingInputs = ratingForm.querySelectorAll('input[name="product_rating"]');
-                    const productRatingInput = document.querySelector('input[name="product_rating"]');
-
-                    ratingInputs.forEach(input => {
-                        input.addEventListener('change', () => {
-                            productRatingInput.value = input.value;
-                            ratingForm.style.display = 'none';
-                            reviewForm.style.display = 'block';
-                        });
-                    });
-                </script>
             </div>
         </div>
     </div>
@@ -199,7 +181,7 @@
 
                     <div class="review-view-comment" col>
                         @foreach ($review as $ritem)
-                            <div class="user-review">
+                            <div class="user-review py-3">
                                 <label for="">{{ $ritem->users->name }}</label>
                                 <input type="hidden" name="id_review" value="{{ $ritem->id }}">
                                 <br>
@@ -223,7 +205,7 @@
                                             <a href="{{ url('edit-comment/' . $products->slug . '/' . $ritem->id) }}"
                                                 class="pl-3">Edit</a>
                                             <a href="#">Lựa chọn 2</a>
-                                            <a href="{{ url('delete-review/' . $ritem->id) }}">Xóa đánh giá</a>
+                                            <a href="{{ url('delete-review/'.$ritem->id) }}">Xóa đánh giá</a>
                                         @else
                                             <a href="#">Lựa chọn 1</a>
                                             <a href="#">Lựa chọn 2</a>
@@ -231,9 +213,9 @@
                                     </div>
                                 </div>
                                 @if ($ritem->suggestion)
-                                    <small style="color: forestgreen">Sẽ giới thiệu sản phẩm</small>
+                                    <p style="color: forestgreen; margin-left: 1rem;"><small>Sẽ giới thiệu sản phẩm</small></p>
                                 @endif
-                                <p class="py-2">
+                                <p class="py-2 user-review">
                                     {{ $ritem->user_review }}
                                 </p>
                             </div>
