@@ -43,9 +43,9 @@ class FrontendController extends Controller
                 $rating_sum = Rating::where('prod_id', $products->id)->sum('stars_rated');
                 $user_rating = Rating::where('prod_id', $products->id)->where('user_id', Auth::id())->first();
                 $review = Review::where('prod_id', $products->id)->get();
-                if($ratings->count() > 0){
-                    $rating_value = $rating_sum/$ratings->count();
-                }else{
+                if ($ratings->count() > 0) {
+                    $rating_value = $rating_sum / $ratings->count();
+                } else {
                     $rating_value = 0;
                 }
                 return view('frontend.products.view', compact('products', 'ratings', 'review', 'rating_value', 'user_rating'));
@@ -56,7 +56,8 @@ class FrontendController extends Controller
             return redirect('/')->with('status-error', 'No such category found!!');
         }
     }
-    public function productslist(){
+    public function productslist()
+    {
         $products = Product::select('name')->where('status', '0')->get();
         $data = [];
 
@@ -65,17 +66,23 @@ class FrontendController extends Controller
         }
         return $data;
     }
-    public function searchproduct(Request $request){
+    public function searchproduct(Request $request)
+    {
         $search_product = $request->input('product_name');
-        if( $search_product != ''){
-            $product = Product::where('name','LIKE','%'.$search_product.'%')->first();
-            if($product){
-                return redirect('category/'.$product->category->slug.'/'.$product->slug);
-            }else{
-                return redirect()->back()->with('status-search-warning', 'Không có sản phẩm nào cả');
+        if ($search_product != '') {
+            $products = Product::where('name', $search_product)->first();
+            if ($products) {
+                return redirect('category/' . $products->category->slug . '/' . $products->slug);
+            } else {
+                $products = Product::where('name', 'LIKE', '%' . $search_product . '%')->get();
+                if ($products->count() > 1) {
+                    return view('frontend.find', compact('products', 'search_product'));
+                } else {
+                    return view('frontend.find', compact('products', 'search_product'));
+                }
             }
-        }else{
-            return redirect()->back()->with('status-search-warning', 'Không có sản phẩm nào cả');
+        } else {
+            return redirect()->back()->with('status-search-warning', 'Bạn không sản phẩm nào cả');
         }
     }
 }

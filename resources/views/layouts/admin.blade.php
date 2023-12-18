@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('admin/css/material-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
 
+
 </head>
 
 <body class="font-sans antialiased">

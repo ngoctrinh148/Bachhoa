@@ -26,9 +26,6 @@
 a {
     text-decoration: none !important;
 }
-.active {
-    text-decoration: underline 2px cadetblue;
-}
 .diachi {
     width: 100%;
 }
@@ -158,3 +155,12 @@ a {
 .user-review{
     margin-left: 1rem;
 }
+.search-noting{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background-color: #b4afaf;
+}
+
