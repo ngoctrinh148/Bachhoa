@@ -17,48 +17,44 @@
                             <div class="row checkout-form">
                                 <div class="col-md-6 mt-3">
                                     <label for="">Name</label>
-                                    <input type="text" class="form-control name" name="name" value="{{ $user->name }}">
+                                    <input type="" class="form-control name" required name="name"
+                                        value="{{ $user->name }}" >
                                     <span id="name_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3">
-                                    <label for="">Email</label>
-                                    <input type="text" class="form-control email" name="email" value="{{ $user->email }}">
-                                    <span id="email_error" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6 mt-3">
                                     <label for="">Phone Number</label>
-                                    <input type="text" name="phone" class="form-control phone" value="{{ $user->phone }}">
+                                    <input type="text" name="phone" class="form-control phone" required
+                                        value="{{ $user->phone }}">
                                     <span id="phone_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">Address 1</label>
-                                    <input type="text" name="address1" class="form-control address1" value="{{ $user->address1 }}">
+                                    <input type="text" name="address1" class="form-control address1" required
+                                        value="{{ $user->address1 }}">
                                     <span id="address1_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3">
-                                    <label for="">Address 2</label>
-                                    <input type="text" name="address2" class="form-control address2" value="{{ $user->address2 }}">
-                                    {{-- <span id="address2_error" class="text-danger"></span> --}}
-                                </div>
-                                <div class="col-md-6 mt-3">
                                     <label for="">Ward</label>
-                                    <input type="text" name="ward" class="form-control ward" value="{{ $user->ward }}">
+                                    <input type="text" name="ward" class="form-control ward" required
+                                        value="{{ $user->ward }}">
                                     <span id="ward_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">District</label>
-                                    <input type="text" name="district" class="form-control district" value="{{ $user->district }}">
+                                    <input type="text" name="district" class="form-control district" required
+                                        value="{{ $user->district }}">
                                     <span id="district_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <label for="">City</label>
-                                    <input type="text" name="city" class="form-control city" value="{{ $user->city }}">
+                                    <input type="text" name="city" class="form-control city" required
+                                        value="{{ $user->city }}">
                                     <span id="city_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mt-3">
-                                    <label for="">Pin Code</label>
-                                    <input type="text" name="pincode" class="form-control pincode" placeholder="Enter Pin Code">
-                                    <span id="pincode_error" class="text-danger"></span>
+                                    <input type="hidden" class="form-control email" required name="email"
+                                        value="{{ $user->email }}">
+                                    <span id="email_error" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -82,14 +78,20 @@
                                         <tr>
                                             <td>{{ $citem->products->name }}</td>
                                             <td>{{ $citem->prod_qty }}</td>
-                                            <td>{{ $citem->products->selling_price }}</td>
+                                            @if ($citem->products->discount != '0')
+                                                <td>{{ number_format($citem->products->original_price - $citem->products->original_price * ($citem->products->discount / 100)) }}
+                                                    VND</td>
+                                            @else
+                                                <td>{{ number_format($citem->products->original_price) }} VND </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <hr>
                             <button type="submit" class="col-md-12 btn btn-outline-primary">Place order | COD</button>
-                            <button type="button" class="btn btn-outline-warning w-100 mt-3 paycredit_btn">Pay with credit</button>
+                            <button type="button" disabled class="btn btn-outline-warning w-100 mt-3 paycredit_btn">Pay with
+                                credit</button>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     loadcart();
     loadwishlist();
+    loadcate();
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -24,6 +25,27 @@ $(document).ready(function () {
             success: function (response) {
                 $(".wishlist-count").html("");
                 $(".wishlist-count").html(response.count);
+            },
+        });
+    }
+    function loadcate() {
+        $.ajax({
+            method: "GET",
+            url: "sidebar-cate",
+            success: function (response) {
+                $(".cate").html(""); 
+                var categories = response.cate; 
+
+
+
+               
+                // var categories = response.cate; 
+                // $.each(categories, function (index, category) {
+                //     var categoryName = category.name;
+                //     var categoryElement = "<li>" + categoryName + "</li>";
+                //     $(".cate").append(categoryElement);
+                // });
+                console.log(response.cate);
             },
         });
     }
@@ -71,8 +93,14 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    swal("Thêm thành công!!", response.status, "success");
-                    loadcart();
+                    if(response.status == "fail"){
+                        swal("Cảnh báo", "Số lượng tồn không đủ", "warning");
+                    }else{
+                        swal("Thêm thành công!!", response.status, "success");
+                        loadcart();   
+                        window.location.reload();              
+                    }
+                  
                 }
             },
         });
@@ -105,6 +133,7 @@ $(document).ready(function () {
             $(this).closest(".product_data").find(".qty-input").val(value);
         }
     });
+    
     $(".delete-cart-item").click(function (e) {
         e.preventDefault();
         $.ajaxSetup({
@@ -262,3 +291,42 @@ function changePlaceholder() {
 }
 
 setInterval(changePlaceholder, 3000);
+
+function showSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "flex";
+}
+function hideSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "none";
+}
+
+// function showSidebarcate() {
+//     var navside = document.getElementById("navside");
+//     navside.style.display = "block";
+// }
+
+// function hideSidebarcate() {
+//     var navside = document.getElementById("navside");
+//     navside.style.display = "none";
+// }
+$(document).ready(function () {
+    $(".edit-btn").click(function () {
+        var currentReview = $(this)
+            .closest(".user-review")
+            .find(".comment-content")
+            .text()
+            .trim();
+        $("#reviewinput").val(currentReview);
+        $("#exampleModal").modal("show");
+    });
+});
+
+function toggleCancelReasonForm(itemId) {
+    var form = document.getElementById('cancelReasonForm' + itemId);
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+    } else {
+        form.style.display = 'none';
+    }
+}

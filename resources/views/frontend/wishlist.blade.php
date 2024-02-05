@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <div class="container my-5">
-        <div class="card shadow product-data ">
-            <div class="card-body wishlist-item">
+    <div class="container ">
+        <div class="card shadow product-data " style="margin-top: 8rem">
+            <div class="card-body wishlist-item" >
                 @if ($wishlist->count() > 0)
                     @foreach ($wishlist as $citem)
                         <div class="row product_data">
@@ -23,7 +23,14 @@
                             </div>
                             <div class="col-md-2 my-auto">
                                 <h6 style="float: inline-end; margin-right: 50px; margin-top: 2px">
-                                    {{ $citem->products->selling_price }} VND</h6>
+                                    @if ($citem->products->discount != '0')
+                                        <span
+                                            class="float-end">{{ number_format($citem->products->original_price - $citem->products->original_price * ($citem->products->discount / 100)) }}
+                                            VND</span>
+                                    @else
+                                        <span class="float-end ">{{ number_format($citem->products->original_price) }} VND </span>
+                                    @endif
+                                </h6>
                             </div>
                             <div class="col-md-2 my-auto">
                                 <input type="hidden" value="{{ $citem->prod_id }}" class="prod_id" name="prod_id">
@@ -36,10 +43,10 @@
 
                             </div>
                             <div class="col-md-2 my-auto">
-                                <button class="btn btn-primary addToCartBtn"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                                <button class="btn btn-primary addToCartBtn"> Thêm vào Giỏ </button>
                             </div>
                             <div class="col-md-2 my-auto">
-                                <button class="btn btn-danger remove-wishlist-item"><i class="fa fa-trash"></i> Remote</button>
+                                <button class="btn btn-danger remove-wishlist-item"> Xóa khỏi Yêu Thích</button>
                             </div>
                         </div>
                     @endforeach

@@ -12,8 +12,8 @@
             <!-- Email Address -->
             <h1>Sign in</h1>
             <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-google-plus-g gmail"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f facebook"></i></a>
             </div>
             <span>or use your email for registeration</span>
             <x-text-input id="email" class="" type="email" name="email" required autofocus
@@ -25,15 +25,8 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
             <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox"
-                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="margin-left: 10rem"
                     href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>

@@ -14,7 +14,7 @@
                         <th>Tên</th>
                         <th>Email</th>
                         <th>Số điện thoại</th>
-                        <th>Action</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,19 +22,21 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->email }}</td>                            
-                            <td>{{ $item->phone }}</td>            
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->phone }}</td>
                             <td>
-                                <a href="{{ url('view-user/' . $item->id) }}" class="btn btn-warning btn-sm">View</a>
-                                <a class="btn btn-danger btn-sm"
-                                    onclick="return confirmDelete('{{ url('delete-products/' . $item->id) }}')">Delete</a>
+                                <a href="{{ url('view-user/' . $item->id) }}" class="btn btn-warning btn-sm">Xem</a>
+                                @if ($user->role_as == 2)
+                                    <a class="btn btn-danger btn-sm" href="{{ url('delete-user/' . $item->id) }}">Xóa</a>
+                                @endif
+
 
                                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                 <script>
                                     function confirmDelete(deleteUrl) {
                                         swal({
                                                 title: "Are you sure?",
-                                                text: "Once deleted, you will not be able to recover this products!",
+                                                text: "Người ",
                                                 icon: "warning",
                                                 buttons: true,
                                                 dangerMode: true,

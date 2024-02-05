@@ -3,7 +3,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4>Category Page</h4>
+            <h4 class="py-2">Trang Loại Hàng
+                <a href="{{ url('add-category') }}"><i class="fa-solid fa-plus btn btn-primary float-right mr-4"></i></a>
+            </h4>
+
             <hr>
         </div>
         <div class="card-body">
@@ -11,9 +14,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Action</th>
+                        <th>Tên Mặt Hàng</th>
+                        <th>Hình Ảnh</th>
+                        <th>Hành Động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,29 +29,11 @@
                                     alt="">
                             </td>
                             <td>
-                                <a href="{{ url('edit-category/' . $item->id) }}" class="btn btn-warning">Edit</a>
-                                <a class="btn btn-danger"
-                                    onclick="return confirmDelete('{{ url('delete-category/' . $item->id) }}')">Delete</a>
-
+                                <a href="{{ url('edit-category/' . $item->id) }}" class="btn btn-warning">Sửa</a>
+                                @if ($user->role_as == 2)
+                                    <a class="btn btn-danger" href="{{ url('delete-category/' . $item->id) }})">Xóa</a>
+                                @endif
                                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                <script>
-                                    function confirmDelete(deleteUrl) {
-                                        swal({
-                                                title: "Are you sure?",
-                                                text: "Once deleted, you will not be able to recover this category!",
-                                                icon: "warning",
-                                                buttons: true,
-                                                dangerMode: true,
-                                            })
-                                            .then((willDelete) => {
-                                                if (willDelete) {
-                                                    window.location.href = deleteUrl;
-                                                } else {
-                                                    swal("Your category is safe!");
-                                                }
-                                            });
-                                    }
-                                </script>
                             </td>
                         </tr>
                     @endforeach

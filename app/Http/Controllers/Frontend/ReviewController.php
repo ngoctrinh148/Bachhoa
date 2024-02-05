@@ -36,18 +36,25 @@ class ReviewController extends Controller
             $product_rating = $request->input('product_rating');
             $suggestion = $request->input('suggestion') == TRUE ? '1' : '0';
 
-            $new_ratings = Rating::create([
-                'user_id' => Auth::id(),
-                'prod_id' => $product_id,
-                'stars_rated' => $product_rating,
-            ]);
-
-            $new_reviews =  Review::create([
-                'user_id' => Auth::id(),
-                'prod_id' => $product_id,
-                'user_review' => $user_review,
-                'suggestion' => $suggestion,
-            ]);
+            $check_user = Review::where('prod_id', $product_id)->where('user_id', Auth::id())->first();
+            if($check_user){
+                $reviewupdate = Review::where('prod_id', $product_id)->where('user_id', Auth::id())->first();
+                $reviewupdate->user_review = $request->input('userreview');
+                $reviewupdate->update();
+            }else{
+                $new_ratings = Rating::create([
+                    'user_id' => Auth::id(),
+                    'prod_id' => $product_id,
+                    'stars_rated' => $product_rating,
+                ]);
+    
+                $new_reviews =  Review::create([
+                    'user_id' => Auth::id(),
+                    'prod_id' => $product_id,
+                    'user_review' => $user_review,
+                    'suggestion' => $suggestion,
+                ]);
+            }
             $category_slug = $product->category->slug;
             $prod_slug = $product->slug;
             if ($product) {
@@ -57,25 +64,12 @@ class ReviewController extends Controller
             return redirect()->back()->with('status', 'Đường dẫn không tồn tại');
         }
     }
-    public function edit($products_slug, $id){
-        $product = Product::where('slug', $products_slug)->where('status', '0')->first();
-        if($product){
-            $review = Review::where('user_id', Auth::id())->where('id', $id)->first();
-            if($review){
-                
-            }else{
-                return redirect()->back()->with('status', 'Đường dẫn không tồn tại');
-            }
-        }else{
-            return redirect()->back()->with('status', 'Đường dẫn không tồn tại');
-        }
-        
+    public function delete($productsid , $id){
+        $product = Product::where('id', $productsid)->first();
 
-    }
-    public function delete($id){
         $review = Review::find($id);
         $review->delete();
-        return redirect('products')->with('status-delete', 'Products deleted successfully!');
+        return redirect('category/'.$product->category->slug.'/'.$product->slug)->with('status-delete-review', 'Đánh giá của bạn đã được xóa');
     }
 }
 

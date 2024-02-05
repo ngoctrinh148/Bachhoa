@@ -22,12 +22,13 @@ return new class extends Migration
             $table->string('ward');
             $table->string('district');
             $table->string('city');
-            $table->string('pincode');
             $table->tinyInteger('status')->default('0');
             $table->string('message')->nullable();
             $table->string('total_price');
             $table->string('tracking_no');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -2,8 +2,10 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h4>Product Page</h4>
+        <div class="card-header ">
+            <h4 class="py-2">Product Page
+                <a href="{{ url('add-products') }}"><i class="fa-solid fa-plus btn btn-primary float-right mr-4"></i></a>
+            </h4>
             <hr>
         </div>
         <div class="card-body">
@@ -11,11 +13,13 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                        <th>Action</th>
+                        <th>Tên</th>
+                        <th>Loại Hàng</th>
+                        <th>Giá</th>
+                        <th>Giảm Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Hình Ảnh</th>
+                        <th>Hàng Động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,22 +27,24 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->category->name }}</td>                            
+                            <td>{{ $item->category->name }}</td>
                             <td>
-                                @if ($item->trending == '1')
-                                    {{ $item->selling_price }} VND
-                                @else
-                                    {{ $item->original_price }} VND
-                                @endif
+                                {{ number_format($item->original_price - $item->original_price * ($item->discount / 100)) }}
+                                VND
                             </td>
+                            <td>{{ $item->discount }}%</td>
+                            <td>{{ $item->qty }}</td>
                             <td>
                                 <img src="{{ asset('asset/uploads/products/' . $item->image) }}" class="cate-image"
                                     alt="">
                             </td>
                             <td>
-                                <a href="{{ url('edit-products/' . $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <a class="btn btn-danger btn-sm"
-                                    onclick="return confirmDelete('{{ url('delete-products/' . $item->id) }}')">Delete</a>
+                                <a href="{{ url('edit-products/' . $item->id) }}" class="btn btn-warning btn-sm">Sửa</a>
+                                @if ($user->role_as == 2)
+                                    <a class="btn btn-danger btn-sm"
+                                        onclick="return confirmDelete('{{ url('delete-products/' . $item->id) }}')">Xóa</a>
+                                @endif
+
 
                                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                 <script>

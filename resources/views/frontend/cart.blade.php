@@ -5,11 +5,12 @@
 @endsection
 
 @section('content')
-    <div class="container my-5">
-        <div class="card shadow product-data ">
-            <div class="card-body cart-item">
+    <div class="container my-5 mt-5">
+        <div class="card shadow product-data my-cartorder ">
+            <div class="card-body cart-item ">
                 @php
                     $total = 0;
+                    $check = true;
                 @endphp
                 @if (count($cartItems) > 0)
                     @foreach ($cartItems as $citem)
@@ -26,23 +27,35 @@
                             </div>
                             <div class="col-md-3 my-auto">
                                 <h6 style="float: inline-end; margin-right: 50px; margin-top: 2px">
-                                    {{ $citem->products->selling_price }} VND</h6>
+                                    @if ($citem->products->discount != '0')
+                                        {{ number_format($citem->products->original_price - $citem->products->original_price * ($citem->products->discount / 100)) }}
+                                        VND
+                                    @else
+                                        {{ number_format($citem->products->original_price) }} VND
+                                    @endif
                             </div>
                             <div class="col-md-3 my-auto">
                                 <input type="hidden" value="{{ $citem->prod_id }}" class="prod_id" name="prod_id">
                                 @if ($citem->products->qty > $citem->prod_qty)
-                                    <label for="Quantity">Quantity</label>
+                                    <label for="Quantity" style="margin-left: 1.7rem;">Số Lượng</label>
                                     <div class="input-group text-center mb-3 " style="width: 130px;">
                                         <button class="input-group-text changeQuantity decrement-btn">-</button>
-                                        <input type="text" name="quantity " value="{{ $citem->prod_qty }}"
+                                        <input type="number" name="quantity " value="{{ $citem->prod_qty }}"
                                             class="form-control qty-input text-center">
                                         <button class="input-group-text changeQuantity increment-btn">+</button>
                                     </div>
                                     @php
-                                        $total += $citem->products->selling_price * $citem->prod_qty;
+                                        if ($citem->discount != '0') {
+                                            $total += ($citem->products->original_price - $citem->products->original_price * ($citem->products->discount / 100)) * $citem->prod_qty;
+                                        } else {
+                                            $total += $citem->products->original_price * $citem->prod_qty;
+                                        }
                                     @endphp
                                 @else
-                                    <h6>Mặt hàng đã hết</h6>
+                                    <h6>Mặt hàng không đủ</h6>
+                                    @php
+                                        $check = false;
+                                    @endphp
                                 @endif
 
                             </div>
@@ -60,14 +73,23 @@
                     <div class="text-center d-flex justify-content-center">
                         <h2>Không có sản phẩm trong giỏ hàng <i class="fa fa-shopping-cart"></i></h2>
                     </div>
+                    @php
+                        $check = false;
+                    @endphp
                 @endif
 
             </div>
             <div class="card-footer">
-                <h6>Tổng tiền: {{ $total }} VND
-                    <a href="{{ url('checkout') }}">
-                        <button class="btn btn-outline-success float-end">Process to Checkout</button>
-                    </a>
+                <h6>Tổng tiền: {{ number_format($total) }} VND
+                    @if ($check)
+                        <a href="{{ url('checkout') }}">
+                            <button class="btn btn-outline-success float-end">Thanh Toán</button>
+                        </a>
+                    @else
+                        <a href="{{ url('checkout') }}">
+                            <button class="btn btn-outline-success float-end" disabled>Thanh Toán</button>
+                        </a>
+                    @endif
                 </h6>
             </div>
         </div>

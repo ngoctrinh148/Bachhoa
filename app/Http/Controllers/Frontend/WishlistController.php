@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class WishlistController extends Controller
     public function index(){
         if(Auth::check()){
         $wishlist = Wishlist::where('user_id', Auth::id())->get();
-        return view("frontend.wishlist", compact("wishlist"));
+        $cate = Category::where('status', '0')->get();
+        return view("frontend.wishlist", compact("wishlist", 'cate'));
         }else{
             return redirect('/')->with('status-warning-login', 'Slug does not exist!');
         }

@@ -3,37 +3,33 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4>Add Category</h4>
+            <h4>Thêm Mới Loại Hàng</h4>
         </div>
         <div class="card-body">
             <form action="{{ url('insert-category') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="">Name</label>
-                        <input type="text" class="form-control" name="name">
+                        <label for="">Tên loại hàng</label>
+                        <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Slug</label>
-                        <input type="text" class="form-control" name="slug">
+                        <input type="text" class="form-control" name="slug" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="">Status</label>
+                        <label for="">Ẩn loại hàng</label>
                         <input type="checkbox" name="status">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="">Popular</label>
+                        <label for="">Phổ biến</label>
                         <input type="checkbox" name="popular">
                     </div>
-                    <div class="col-md-12 mb-3">
-                        <label for="">Meta Keywords</label>
-                        <textarea name="meta_keywords" rows="3" class="form-control"></textarea>
-                    </div>
                     <div class="col-md-12">
-                        <input type="file" class="form-control" name="image">
+                        <input type="file" class="form-control" name="image" required>
                     </div>
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col-md-12 mt-5">
+                        <button type="submit" class="btn btn-primary">Xác Nhận</button>
                     </div>
                 </div>
             </form>

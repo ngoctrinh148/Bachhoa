@@ -32,7 +32,7 @@
                                         <tr class="text-center">
                                             <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                                             <td>{{ $item->tracking_no }}</td>
-                                            <td>{{ $item->total_price }}</td>
+                                            <td>{{ number_format($item->total_price) }}</td>
                                             <td>
                                                 @switch($item->status)
                                                     @case(0)
@@ -53,7 +53,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ url('admin/view-order/' . $item->id) }}"
-                                                    class="btn btn-outline-primary">View</a>
+                                                    class="btn btn-outline-primary">Xem</a>
                                             </td>
                                         </tr>
                                     @endforeach

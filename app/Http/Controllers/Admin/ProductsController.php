@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Detail;
 use App\Models\Meta;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
@@ -14,7 +17,8 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('admin.products.index', compact('products'));
+        $user = User::where('id', Auth::id())->first();
+        return view('admin.products.index', compact('products', 'user'));
     }
     public function add()
     {
@@ -34,27 +38,34 @@ class ProductsController extends Controller
         $products->name = $request->input('name');
         $products->slug = $request->input('slug');
         $products->cate_id = $request->input('cate_id');
-        $products->small_description = $request->input('small_description');
         $products->description = $request->input('description');
         $products->original_price = $request->input('original_price');
-        $products->selling_price = $request->input('selling_price');
+        $products->discount = $request->input('discount');
         $products->qty = $request->input('qty');
-        $products->tax = $request->input('tax');
         $products->status = $request->input('status') == TRUE ? '1' : '0';
         $products->trending = $request->input('trending') == TRUE ? '1' : '0';
-        $products->meta_keywords = $request->input('meta_keywords');
-
         $products->save();
+
+        $products_detail = Product::where('name', $request->input('name'))->first();
+        $detail = new Detail();
+        $detail->product_id = $products_detail->id;
+        $detail->prod_qty = $request->input('qty');
+        $detail->id_user = Auth::id();
+        $detail->save();
+        
         return redirect('products')->with('status-add', 'Product added successfully!');
     }
     public function edit($id)
     {
         $products = Product::find($id);
-        return view('admin.products.edit', compact('products'));
+        $category = Category::all();
+        return view('admin.products.edit', compact('products', 'category'));
     }
     public function update(Request $request, $id)
     {
         $products = Product::find($id);
+        $last_qty = $products->qty;
+
         if ($request->hasFile('image')) {
             $path = 'asset/uploads/products/' . $products->image;
             if (File::exists($path)) {
@@ -68,16 +79,22 @@ class ProductsController extends Controller
         }
         $products->name = $request->input('name');
         $products->slug = $request->input('slug');
-        $products->small_description = $request->input('small_description');
+        $products->cate_id = $request->input('cate_id');
         $products->description = $request->input('description');
         $products->original_price = $request->input('original_price');
-        $products->selling_price = $request->input('selling_price');
+        $products->discount = $request->input('discount');
         $products->qty = $request->input('qty');
-        $products->tax = $request->input('tax');
         $products->status = $request->input('status') == TRUE ? '1' : '0';
         $products->trending = $request->input('trending') == TRUE ? '1' : '0';
-        $products->meta_keywords = $request->input('meta_keywords');
+       
+     
         $products->update();
+
+        $detail = new Detail();
+        $detail->product_id = $id;
+        $detail->prod_qty = ($request->input('qty') - $last_qty);
+        $detail->id_user = Auth::id();
+        $detail->save();
         return redirect('products')->with('status-update', 'Products update successfully!');
     }
     public function delete($id)

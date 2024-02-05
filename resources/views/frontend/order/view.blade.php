@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container py-5">
+    <div class="container py-5 ctdonhang">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Chi tiết đơn hàng
@@ -51,13 +51,13 @@
                                     <tr class="text-center">
                                        <td>{{$item->products->name}}</td>
                                        <td>{{$item->qty}}</td>
-                                       <td>{{$item->price}}</td>
+                                       <td>{{number_format($item->price)}}</td>
                                        <td ><img src="{{ asset('asset/uploads/products/'.$item->products->image) }}" width="50px" alt=""></td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <h4 class="float-end px-2">Tổng tiền: <span style="margin-left: 3rem">{{ $orders->total_price}} VND</span></h4>
+                        <h4 class="float-end px-2">Tổng tiền: <span style="margin-left: 3rem">{{ number_format($orders->total_price)}} VND</span></h4>
                     </div>
                 </div>
             </div>

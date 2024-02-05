@@ -21,6 +21,7 @@ class Product extends Model
         'qty',
         'tax',
         'meta_keywords',
+        'discount',
     ];
     
     public function category(){

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\Frontend\RatingController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\CartController;
@@ -38,7 +39,9 @@ Route::get('category/{cate_slug}/{prod_slug}', [FrontendController::class, 'view
 
 Route::get('product-list', [FrontendController::class,'productslist']);
 Route::post('search-product', [FrontendController::class,'searchproduct']);
+Route::get('orther-products/{id}', [FrontendController::class,'ortherproduct']);
 
+Route::get('sidebar-cate', [FrontendController::class,'sidecate']);
 
 Route::post('add-to-cart', [CartController::class, 'addToCart']);
 Route::post('deleta-cart-item', [CartController::class, 'deleteproduct']);
@@ -55,13 +58,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('place-order', [CheckoutController::class,'placeorder']);
     Route::get('my-order', [UserController::class,'index']);
     Route::get('view-order/{id}', [UserController::class,'view']);
+    Route::get('cancel-order/{id}', [UserController::class,'cancel']);
+    Route::post('add-reason', [UserController::class,'addreason']);
+    Route::get('delete-order/{id}', [UserController::class,'delete']);
+    Route::get('success-order/{id}', [UserController::class,'success']);
     Route::get('wishlist', [WishlistController::class,'index']);
     Route::post('/proceed-to-pay', [CheckoutController::class,'paycheck']);
     Route::post('/add-rating', [RatingController::class,'add']);
-    Route::post('add-review/{product_slug}/userreview', [ReviewController::class,'addreview']);
+
     Route::post('add-review', [ReviewController::class,'create']);
-    Route::post('edit-comment/{products_slug}/{id}', [ReviewController::class,'edit']);
-    Route::post('delete-review/{id}', [ReviewController::class,'delete']);
+    Route::get('delete-review/{productsid}/{id}', [ReviewController::class,'delete']);
 
 });
 
@@ -77,8 +83,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/save-event', [EventController::class, 'addEvent']);
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\Admin\FrontendController@index');
+
+    Route::get('dashboard', [DashboardController::class, 'index']);
+
 
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('add-category', [CategoryController::class, 'add']);
@@ -99,9 +109,18 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::put('update-order/{id}', [OrderController::class,'updateorder']);
     Route::get('order-delivering', [OrderController::class,'orderdelivering']);
     Route::get('order-delivered', [OrderController::class,'orderdelivered']);
+    Route::get('order-cancaled', [OrderController::class,'ordercanceled']);
+
 
     Route::get('users', [DashboardController::class,'users']);
     Route::get('view-user/{id}', [DashboardController::class,'viewuser']);
+    Route::get('delete-user/{id}', [DashboardController::class,'deleteuser']);
+    Route::post('update-role/{id}', [DashboardController::class, 'updaterole']);
+
+    Route::get('print-bill/{id}', [DashboardController::class,'printbill']);
+
+    Route::get('details', [DashboardController::class,'details']);
+    Route::get('delete-details/{id}', [DashboardController::class, 'deletedetails']);
 });
 
 

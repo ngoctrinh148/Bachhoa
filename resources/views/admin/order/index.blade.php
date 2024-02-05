@@ -10,11 +10,14 @@
                 <div class="card">
                     <div class="card-header ">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <h4 class="py-2">Đơn hàng Mới</h4>
                             </div>
                             <div class="col-md-3">
                                 <a href="{{ 'order-delivering' }}" class="btn btn-outline-warning">Đơn hàng đang giao</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{ 'order-cancaled' }}" class="btn btn-outline-danger">Đơn hàng đã hủy</a>
                             </div>
                             <div class="col-md-3">
                                 <a href="{{ 'order-delivered' }}" class="btn btn-outline-success">Đơn hàng đã giao</a>
@@ -36,7 +39,7 @@
                                         <tr class="text-center">
                                             <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                                             <td>{{ $item->tracking_no }}</td>
-                                            <td>{{ $item->total_price }}</td>
+                                            <td>{{ number_format($item->total_price) }}</td>
                                             <td>
                                                 @switch($item->status)
                                                     @case(0)
@@ -48,6 +51,10 @@
                                                     @break
 
                                                     @case(2)
+                                                        Đã hủy
+                                                    @break
+
+                                                    @case(3)
                                                         Đã giao
                                                     @break
 
@@ -57,7 +64,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ url('admin/view-order/' . $item->id) }}"
-                                                    class="btn btn-outline-primary">View</a>
+                                                    class="btn btn-outline-primary">Xem</a>
                                             </td>
                                         </tr>
                                     @endforeach

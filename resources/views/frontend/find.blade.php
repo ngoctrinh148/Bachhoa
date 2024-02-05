@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="py-5">
-        <div class="container">
+        <div class="container find">
             <div class="row">
                 <h4>Tìm kiếm với từ khóa "{{ $search_product }}"</h4>
                 @if ($products->count() != 0)
@@ -18,11 +18,14 @@
                                         alt="Products image">
                                     <div class="card-body">
                                         <h4>{{ $prod->name }}</h4>
-                                        @if ($prod->trending == '1')
-                                            <span class="float-start "><s>{{ $prod->original_price }} VND </s></span>
-                                            <span class="float-end">{{ $prod->selling_price }} VND</span>
+                                        @if ($prod->discount != '0')
+                                            <span class="float-start "><s>{{ number_format($prod->original_price) }} VND
+                                                </s></span>
+                                            <span
+                                                class="float-end">{{ number_format($prod->original_price - $prod->original_price * ($prod->discount / 100)) }}
+                                                VND</span>
                                         @else
-                                            <span class="float-end ">{{ $prod->original_price }} VND </span>
+                                            <span class="float-end ">{{ number_format($prod->original_price) }} VND </span>
                                         @endif
 
                                     </div>

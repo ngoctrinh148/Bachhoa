@@ -1,0 +1,193 @@
+.dathang,
+.doitra {
+    display: flex;
+    text-align: center;
+}
+
+.dathang {
+    text-align: center;
+    margin-left: 80px;
+    font-size: 15px;
+}
+
+.doitra {
+    margin-left: 100px;
+}
+
+.imgf {
+    margin-top: -10px;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.gach {
+    margin-left: 100px;
+    font-size: 30px;
+    margin-top: -15px;
+    color: #cbbec7;
+}
+
+.center {
+    display: flex;
+}
+
+.tongdai,
+.dangki {
+    display: flex;
+}
+
+.tongdai {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1b8110;
+}
+
+.dangki {
+    margin-left: 80px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1b8110;
+}
+
+.imgc {
+    margin-top: -8px;
+    width: 30px;
+    height: 30px;
+}
+
+.congviec {
+    display: flex;
+}
+
+.cham {
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-left: 45px;
+}
+
+.cham1 {
+    margin-top: -5px;
+    margin-right: 5px;
+}
+
+.cham2 {
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-left: 55px;
+}
+
+.cham3 {
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-left: 33px;
+}
+
+.cham4 {
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-left: 34px;
+}
+
+.cham5 {
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-left: 42px;
+}
+
+.cham6 {
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-left: 57px;
+}
+
+.btna {
+    height: 30px;
+    margin-left: 57px;
+    margin-top: -5px;
+    background-color: #ff4500;
+    border: none;
+    border-radius: 3px;
+    color: #fff !important;
+    text-decoration: none;
+    font-style: normal;
+}
+
+.b {
+    text-align: left;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.text {
+    font-size: 11px;
+}
+
+.thanhvien {
+    display: flex;
+    margin-top: 15px;
+}
+
+.thanhvien > p {
+    font-size: 13px;
+}
+
+.imgt {
+    margin-top: -13px;
+    height: 40px;
+    width: 120px;
+}
+
+.hethong {
+    display: flex;
+}
+
+.hethongg {
+    display: flex;
+}
+
+.imgh {
+    margin-left: 70px;
+    margin-top: -8px;
+    width: 30px;
+    height: 30px;
+}
+
+.icon {
+    display: flex;
+}
+
+.icon1 {
+    margin-left: 50px;
+    margin-top: -8px;
+    width: 110px;
+    height: 50px;
+}
+
+.icon2 {
+    margin-left: 10px;
+    margin-top: 0px;
+    width: 90px;
+    height: 40px;
+}
+
+.icon3 {
+    margin-left: 10px;
+    margin-top: 4px;
+    width: 150px;
+    height: 30px;
+}
+
+.tinnhiem > img {
+    margin-left: -220px;
+    height: 50px;
+    width: 110px;
+}
+.footer {
+    border-bottom: 2px solid #cbbec7;
+    border-radius: 5px;
+    margin-top: 50px;
+}

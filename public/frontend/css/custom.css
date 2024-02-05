@@ -33,6 +33,11 @@ a {
     display: flex;
     margin-left: 3rem;
 }
+.vitri-in{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+}
 .b {
     font-weight: bold;
 }
@@ -44,8 +49,15 @@ a {
 .my-wishlist {
     position: relative;
 }
-.wishlist-count,
-.cart-count {
+.my-cart{
+    margin-right: 2rem;
+}
+.wishlist-count {
+    position: absolute;
+    top: -0.03rem;
+    right: 0.8rem;
+}
+.cart-count{
     position: absolute;
     top: -0.03rem;
     right: -0.4rem;
@@ -146,7 +158,8 @@ a {
     transition: 0.5s ease;
 }
 .search-bar{
-    width: 50%;
+    background-color: rgba(1, 136, 70, 0.5);
+    width: 60%;
     margin-left: 5%;
 }
 .ui-menu{
@@ -164,3 +177,197 @@ a {
     background-color: #b4afaf;
 }
 
+.menuButton{
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+.sidebar ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.sidebar li{
+    height: 50px;
+    width: 100%;
+}
+.sidebar a{
+    height: 100%;
+    width: 100%;
+    padding: 0 30px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+.sidebar a:hover{
+    background-color: rgba(255, 255, 255, 0.6);   
+}
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300px;
+    z-index: 999;
+    background-color: white;
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+}
+@media(max-width: 800px){
+    .hideOnMobile{
+        display: none;
+    }
+    .menuButton{
+        display: block;
+    }
+    .sidebarcate{
+        display: none;
+    }
+}
+@media(max-width: 400px){
+    .sidebar{
+        width: 100%;
+    }
+    .sidebarcate{
+        display: none;
+    }
+}
+.danhmuc{
+    background-color: lightskyblue;
+    width: 40vh;
+    height: 3rem;
+    margin-left: 2.8rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+.sidebarcate{
+    position: fixed;
+    top: 115px;
+    width: 20%;
+    background-color: rgba(1, 136, 70, 0.1);
+    border-right: 2px solid #1b8110;
+    font-weight: 500;
+    font-family: brabahnschrift;
+    height: 80%;
+    overflow-x: hidden;
+    z-index: 100;
+}
+.sidebarcate>ul {
+    list-style: none;
+    width: 10rem;
+}
+.sidebarcate li{
+    height: 2rem;
+    width: 10rem;
+    margin-top: 1rem;
+}
+.licate{
+    position: relative;
+    height: 2rem;
+    width: 10rem;
+    padding-top: 15px;
+    margin-top: 1rem;
+}
+.sidebarcate li a{
+    position: relative;
+    padding-top: 15px;
+    width: 10rem;
+}
+.sidebarcate li a::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -.5rem;
+    height: 0%;
+    width: 5px;
+    background-color: rgb(16, 162, 91);
+    z-index: -1;
+    margin-bottom: 2px;
+    transition: height 0.25s ease, width 0.75s ease 0.25s;
+}
+.sidebarcate li a:hover::before{
+    height: 120%;
+    width: 13.1rem;
+}
+.te{
+    margin-left: 3.2rem;
+    z-index: -5;
+}
+.headernav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 599;
+}
+
+.content{
+    margin-top: 5rem;
+}
+.origin_price, .discount_price{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.discount_price{
+    color: red;
+    margin-left: 4rem;
+}
+.index_product{
+    position: relative;
+}
+.discount-tag{
+    position: absolute;
+    top: -.6rem;
+    right: 1rem;
+    margin-block: .3rem;
+    margin-left: 2rem;
+    height: 2rem;
+    width: 4rem;
+    justify-content: center;
+    align-items: center;
+}
+.popular-tag{
+    position: absolute;
+    top: 0;
+    right: -2.3rem;
+    margin-block: .3rem;
+    margin-left: 2rem;
+    height: 1rem;
+    width: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+.bill{
+    margin:0 auto;
+    width:700px; 
+    border:1px solid #000;
+}
+.bill-table{
+    width: 100%;
+    margin-left: 20px; 
+    margin-top: 20px;
+}
+.nav-main{
+    background-color: rgba(1, 136, 70);
+}
+.mota{
+    height: 10rem;
+    overflow: auto;
+}
+.my-cartorder{
+    margin-top: 8rem;
+}
+@media print {
+    .back{
+        display: none !important;
+    }
+    /* ... */
+  }

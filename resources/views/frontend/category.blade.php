@@ -5,8 +5,9 @@
 @endsection
 
 @section('content')
+
     <div class="py-5 pt-5">
-        <div class="container">
+        <div class="container indexcate">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Tất cả danh mục</h2>

@@ -19,13 +19,13 @@ return new class extends Migration
             $table->mediumText('small_description');
             $table->longText('description');
             $table->string('original_price');
-            $table->string('selling_price');
+            $table->tinyInteger('discount')->default(0);
             $table->string('image');
             $table->string('qty');
             $table->string('tax');
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('trending')->default(0);
-            $table->mediumText('meta_keywords');
+
             $table->timestamps();
         });
     }

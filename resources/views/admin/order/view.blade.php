@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container py-5">
+    <div class="container py-5 mt-5">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Chi tiết đơn hàng
@@ -24,15 +24,17 @@
 
                         </div>
                         <div class="vitri py-2">
-                            <div class="b">{{ $orders->name }}</div>
-                            <div class="b" style="padding-left: 1rem">{{ $orders->phone }}</div>
-                            <div class="b" style="padding-left: 1rem">{{ $orders->email }}</div>
-                            <div class="" style="padding-left: 3rem">{{ $orders->address1 }}</div>
-                            <div class="">, {{ $orders->ward }}</div>
-                            <div class="">, {{ $orders->district }}</div>
-                            <div class="">, {{ $orders->city }}</div>
+                            <div class="b">{{ $ordersv->name }}</div>
+                            <div class="b" style="padding-left: 1rem">{{ $ordersv->phone }}</div>
+                            <div class="b" style="padding-left: 1rem">{{ $ordersv->email }}</div>
+                            <div class="" style="padding-left: 3rem">{{ $ordersv->address1 }}</div>
+                            <div class="">, {{ $ordersv->ward }}</div>
+                            <div class="">, {{ $ordersv->district }}</div>
+                            <div class="">, {{ $ordersv->city }}</div>
                         </div>
-
+                        @if ($ordersv->reason)
+                            <h6 style="margin-left: 3rem;">Lý do hủy đơn: {{ $ordersv->reason }}</h6>
+                        @endif
                     </div>
                     <div class="card-body">
 
@@ -46,12 +48,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($orders->orderitems as $item)
+                                @foreach ($ordersv->orderitems as $iitem)
                                     <tr class="text-center">
-                                        <td>{{ $item->products->name }}</td>
-                                        <td>{{ $item->qty }}</td>
-                                        <td>{{ $item->price }}</td>
-                                        <td><img src="{{ asset('asset/uploads/products/' . $item->products->image) }}"
+                                        <td>{{ $iitem->products->name }}</td>
+                                        <td>{{ $iitem->qty }}</td>
+                                        <td>{{ number_format($iitem->price) }}</td>
+                                        <td><img src="{{ asset('asset/uploads/products/' . $iitem->products->image) }}"
                                                 width="50px" alt=""></td>
                                     </tr>
                                 @endforeach
@@ -61,31 +63,39 @@
                             <div class="col-md-3">
                                 <h5>Trạng Thái Đơn Hàng</h5>
                             </div>
-                            <div class="col-md-5 ">
-                                <form action="{{ url('update-order/'.$orders->id) }}" method="POST" class="row">
+                            <div class="col-md-4 ">
+                                <form action="{{ url('update-order/' . $ordersv->id) }}" method="POST" class="row">
                                     @csrf
-                                    @method('PUT')   
+                                    @method('PUT')
                                     <div class="col-md-8">
-                                        <select class="form-select col-md-5" name="order_status">                               
-                                            <option selected>Chọn trạng thái đơn hàng</option>
-                                            <option {{ $orders->status == '0' ? 'selected' : '' }} value="0">Đang chờ
+                                        <select class="form-select col-md-5" name="order_status">
+                                            <option {{ $ordersv->status == '0' ? 'selected' : '' }} value="0">Đang chờ
                                             </option>
-                                            <option {{ $orders->status == '1' ? 'selected' : '' }} value="1">Đang Giao
+                                            <option {{ $ordersv->status == '1' ? 'selected' : '' }} value="1">Xác nhận
                                             </option>
-                                            <option {{ $orders->status == '2' ? 'selected' : '' }} value="2">Đã Giao
+                                            {{-- <option {{ $ordersv->status == '2' ? 'selected' : '' }} value="2">Hủy
+                                            </option> --}}
+                                            @if ($user->role_as == 2)
+                                                <option {{ $ordersv->status == '4' ? 'selected' : '' }} value="4">Xóa
+                                            @endif
                                             </option>
                                         </select>
                                     </div>
+
                                     <div class="col-md-4">
                                         <button class="btn btn-outline-primary" type="submit">Cập Nhật</button>
                                     </div>
                                 </form>
                             </div>
-
-
-                            <div class="col-md-4">
-                                <h4 class="float-end px-2">Tổng tiền: <span
-                                        style="margin-left: 2rem">{{ $orders->total_price }} VND</span></h4>
+                            <div class="col-md-2">
+                                <a href="{{ url('print-bill/' . $ordersv->id) }}" class="btn btn-outline-success">In hóa
+                                    đơn</a>
+                                {{-- <button class="btn btn-outline-success" onclick="printPage()">In trang</button> --}}
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="float-end py-2">Tổng tiền: <span
+                                        style="margin-left: 2rem">{{ number_format($ordersv->total_price) }} VND</span>
+                                </h6>
                             </div>
                         </div>
                     </div>
@@ -94,3 +104,8 @@
         </div>
     </div>
 @endsection
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>

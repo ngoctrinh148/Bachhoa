@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('qty');
             $table->string('price');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

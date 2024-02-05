@@ -27,7 +27,10 @@ return new class extends Migration
             $table->string('pincode');
             $table->rememberToken();
             $table->timestamps();
+
+            
         });
+        
     }
 
     /**

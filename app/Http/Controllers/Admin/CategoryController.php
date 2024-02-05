@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
@@ -12,7 +15,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.category.index', compact('categories'));
+        $user = User::where('id', Auth::id())->first();
+        return view('admin.category.index', compact('categories', 'user'));
     }
 
     public function add()
@@ -33,7 +37,6 @@ class CategoryController extends Controller
         $category->slug = $request->input('slug');
         $category->status = $request->input('status') == TRUE ? '1' : '0';
         $category->popular = $request->input('popular') == TRUE ? '1' : '0';
-        $category->meta_keywords = $request->input('meta_keywords');
         $category->save();
         return redirect('categories')->with('status-add', 'Category add successfully!');
     }
@@ -61,20 +64,24 @@ class CategoryController extends Controller
         $category->slug = $request->input('slug');
         $category->status = $request->input('status') == TRUE ? '1' : '0';
         $category->popular = $request->input('popular') == TRUE ? '1' : '0';
-        $category->meta_keywords = $request->input('meta_keywords');
         $category->update();
         return redirect('categories')->with('status-update', 'Category update successfully!');
     }
     public function delete($id)
     {
-        $category = Category::find($id);
-        if ($category->image) {
-            $path = 'asset/uploads/category/' . $category->image;
-            if (File::exists($path)) {
-                File::delete($path);
+        $category = Category::where('id', $id)->first();
+        $check = Product::where('cate_id', $category->id)->first();
+        if($check){
+            return redirect('categories')->with('status-warning-delete', 'Category delete successfully!');
+        }else{
+            if ($category->image) {
+                $path = 'asset/uploads/category/' . $category->image;
+                if (File::exists($path)) {
+                    File::delete($path);
+                }
             }
+            $category->delete();
+            return redirect('categories')->with('status-delete', 'Category delete successfully!');
         }
-        $category->delete();
-        return redirect('categories')->with('status-delete', 'Category delete successfully!');
     }
 }

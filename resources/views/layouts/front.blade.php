@@ -21,7 +21,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
-   
+
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap5.css') }}">
 
 
@@ -38,8 +38,11 @@
 </head>
 
 <body>
-    @include('layouts.inc.frontnavbar')
-    <div class="content">
+    <div class="headernav">
+        @include('layouts.inc.frontnavbar')
+    </div>
+
+    <div class="content ">
         @yield('content')
     </div>
 
@@ -82,7 +85,7 @@
 
     @if (session('status-add'))
         <script>
-            swal("Added Successfully!!", "You have been added successfully!", "success");
+            swal("Thêm thành công", "Sản phẩm đã được thêm vào giỏ!", "success");
         </script>
     @endif
     @if (session('status-order'))
@@ -90,11 +93,32 @@
             swal("Bạn đã đặt hàng thành công!!", "Đơn hàng của bạn sẽ sớm được giao!", "success");
         </script>
     @endif
+    @if (session('status-success'))
+        <script>
+            swal("Bạn đã nhận hàng thành công!!", "Vui lòng đánh giá sản phẩm!", "success");
+        </script>
+    @endif
+    @if (session('status-delete-review'))
+        <script>
+            swal("Bạn đã xóa thành công!!", "Đánh giá của bạn đã được xóa", "success");
+        </script>
+    @endif
+    @if (session('status-cancel'))
+        <script>
+            swal("Hủy thành công", "Đơn hàng của bạn đã được hủy!", "success");
+        </script>
+    @endif
+    @if (session('status-delete'))
+        <script>
+            swal("Xóa thành công", "Đơn hàng của bạn đã được xóa!", "success");
+        </script>
+    @endif
     @if (session('status-search-warning'))
         <script>
             swal({
-                title: "Cảnh báo!",
+                ti
                 text: "Không có sản phẩm nào cả",
+                tle: "Cảnh báo!",
                 icon: "warning",
                 button: "OK",
             });
